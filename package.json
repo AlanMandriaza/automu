@@ -1,0 +1,27 @@
+{
+  "name": "mu-party-monitor",
+  "version": "1.0.0",
+  "description": "Monitor de niveles para MU Party",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "mu",
+    "party",
+    "monitor",
+    "gaming"
+  ],
+  "author": "Alan",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "cheerio": "^1.1.2",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

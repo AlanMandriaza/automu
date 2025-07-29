@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitor de Niveles - MU Party</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --primary: #0f0;
+      --secondary: #00a8ff;
+      --warning: yellow;
+      --danger: red;
+      --bg-dark: #111;
+      --bg-light: #222;
+      --text-light: #eee;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      max-height: 100vh;
+      padding: 10px;
+      overflow: hidden;
+    }
+    
+    h1 {
+      color: var(--primary);
+      text-align: center;
+      margin: 5px 0;
+      font-size: 1.5rem;
+      text-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+    }
+    
+    .panel {
+      background-color: var(--bg-light);
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 8px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--secondary);
+      font-size: 0.8rem;
+    }
+    
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 6px;
+      border: 1px solid #333;
+      border-radius: 4px;
+      background-color: #222;
+      color: white;
+      font-size: 0.9rem;
+    }
+    
+    button {
+      background-color: var(--primary);
+      color: black;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+    
+    button:hover {
+      background-color: #0c0;
+      transform: translateY(-1px);
+    }
+    
+    .button-danger {
+      background-color: var(--danger);
+    }
+    
+    .button-warning {
+      background-color: var(--warning);
+      color: black;
+    }
+    
+    .warning { color: var(--warning); }
+    .alert { color: var(--danger); }
+    .success { color: var(--primary); }
+    
+    .progress-container {
+      width: 100%;
+      background-color: #333;
+      border-radius: 4px;
+      margin: 8px 0;
+      overflow: hidden;
+      height: 20px;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background-color: var(--secondary);
+      width: 0%;
+      transition: width 0.5s ease-out;
+      position: relative;
+    }
+    
+    .progress-text {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-size: 0.7rem;
+      text-shadow: 1px 1px 1px black;
+    }
+    
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin: 8px 0;
+    }
+    
+    .stat-card {
+      background-color: #1a1a1a;
+      padding: 8px;
+      border-radius: 4px;
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin: 3px 0;
+    }
+    
+    .stat-label {
+      font-size: 0.7rem;
+      color: #aaa;
+    }
+    
+    .time-progress {
+      margin-top: 5px;
+    }
+    
+    .time-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      margin-bottom: 3px;
+    }
+    
+    .chart-container {
+      height: 120px;
+      margin-top: 8px;
+    }
+    
+    .level-history {
+      display: flex;
+      height: 100%;
+      align-items: flex-end;
+      gap: 2px;
+    }
+    
+    .level-bar {
+      flex: 1;
+      background-color: var(--primary);
+      transition: height 0.5s;
+      position: relative;
+      border-radius: 2px 2px 0 0;
+    }
+    
+    .level-bar:hover {
+      background-color: var(--secondary);
+    }
+    
+    .level-label {
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6rem;
+      color: white;
+    }
+    
+    .notification-panel {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    
+    .notification-box {
+      background-color: #1a1a1a;
+      padding: 8px;
+      border-radius: 4px;
+      margin-top: 8px;
+      border-left: 3px solid var(--primary);
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    
+    .output-container {
+      flex: 1;
+      overflow-y: auto;
+      min-height: 60px;
+      max-height: 100px;
+      font-size: 0.8rem;
+      padding: 5px;
+      background-color: #1a1a1a;
+      border-radius: 4px;
+      margin-top: 5px;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .modal-content {
+      background-color: var(--bg-light);
+      padding: 15px;
+      border-radius: 6px;
+      text-align: center;
+      max-width: 300px;
+      width: 90%;
+    }
+    
+    @media (max-height: 700px) {
+      .chart-container {
+        height: 80px;
+      }
+      .stat-value {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h1>🌟 Monitor de Niveles - MU Party</h1>
+    
+    <div class="form-group">
+      <label for="characterName">Nombre del personaje:</label>
+      <input type="text" id="characterName" placeholder="Ingresa tu nombre de personaje">
+    </div>
+    
+    <div class="button-group">
+      <button id="startButton">Iniciar</button>
+      <button id="clearDataBtn" class="button-danger">Borrar</button>
+    </div>
+    
+    <div class="progress-container" id="updateProgress" style="display: none;">
+      <div class="progress-bar" id="updateProgressBar">
+        <span class="progress-text" id="updateProgressText">Actualizando...</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="panel" id="statsPanel" style="display: none;">
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-label">Nivel Actual</div>
+        <div class="stat-value" id="currentLevel">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Estado</div>
+        <div class="stat-value" id="onlineStatus">Desconocido</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Tiempo en nivel</div>
+        <div class="stat-value" id="currentLevelTime">00:00:00</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Estimado para subir</div>
+        <div class="stat-value" id="timeToLevelUp">00:00:00</div>
+      </div>
+    </div>
+    
+    <div class="time-progress">
+      <div class="time-label">
+        <span>Progreso en nivel actual</span>
+        <span id="levelProgressText">0%</span>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar" id="levelProgressBar" style="width: 0%">
+          <span class="progress-text" id="levelProgressTime">00:00:00</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="time-progress">
+      <div class="time-label">
+        <span>Tiempo estimado para subir</span>
+        <span id="estimateProgressText">0%</span>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar" id="estimateProgressBar" style="width: 0%">
+          <span class="progress-text" id="estimateProgressTime">00:00:00</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chart-container">
+      <div class="level-history" id="levelChart"></div>
+    </div>
+  </div>
+  
+  <div class="panel">
+    <h3>🔔 Notificaciones</h3>
+    
+    <div class="notification-box">
+      <div class="form-group">
+        <label for="notificationLevel">Nivel para notificación:</label>
+        <div style="display: flex; gap: 5px; align-items: center;">
+          <input type="number" id="notificationLevel" min="1" max="400" value="400">
+          <button id="confirmLevelBtn">Confirmar</button>
+        </div>
+      </div>
+      
+      <div class="notification-panel">
+        <button id="testSoundBtn">Probar sonido</button>
+        <button id="stopSoundBtn" class="button-warning">Silenciar</button>
+        <span id="soundStatus">Sonido desactivado</span>
+      </div>
+    </div>
+    
+    <div class="output-container" id="output"></div>
+  </div>
+
+  <div id="goalModal" class="modal">
+    <div class="modal-content">
+      <h2 id="modalTitle">Notificación</h2>
+      <p id="modalMessage">Mensaje de notificación.</p>
+      <button id="closeModalBtn">Cerrar</button>
+    </div>
+  </div>
+
+  <script src="auto.js"></script>
+</body>
+</html>
