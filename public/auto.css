@@ -1,0 +1,367 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', 'Arial', sans-serif;
+  background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+  color: #fff;
+  line-height: 1.4;
+  padding: 10px;
+  min-height: 100vh;
+}
+
+.panel {
+  background: rgba(44, 44, 44, 0.9);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #444;
+}
+
+.header-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stats-panel, .notification-panel {
+  background: rgba(34, 34, 34, 0.9);
+}
+
+h1, h3 {
+  color: #00cc99;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.8em;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+h3 {
+  font-size: 1.3em;
+}
+
+/* Form and input styles */
+.form-group {
+  margin-bottom: 8px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+  color: #bbb;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="range"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background: #2a2a2a;
+  color: #fff;
+  font-size: 0.95em;
+  transition: border-color 0.3s;
+}
+
+input[type="number"] {
+  max-width: 90px;
+}
+
+input[type="range"] {
+  max-width: 100px;
+  padding: 0;
+}
+
+input:focus {
+  border-color: #00cc99;
+  outline: none;
+}
+
+.compact {
+  flex: 1;
+  margin: 0 5px;
+}
+
+.top-controls {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.input-group {
+  display: flex;
+  gap: 5px;
+}
+
+/* Button styles */
+.button-group,
+.notification-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95em;
+  transition: transform 0.2s, background-color 0.3s;
+  font-weight: 500;
+}
+
+button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+#startButton {
+  background-color: #00cc99;
+  color: #fff;
+}
+
+.button-danger {
+  background-color: #ff4444;
+  color: #fff;
+}
+
+.button-warning {
+  background-color: #ffaa00;
+  color: #fff;
+}
+
+/* Circular progress styles */
+.progress-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.circular-progress {
+  position: relative;
+}
+
+.progress-background {
+  fill: none;
+  stroke: #444;
+  stroke-width: 5;
+}
+
+.progress-circle {
+  fill: none;
+  stroke: #00cc99;
+  stroke-width: 5;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  stroke-dasharray: 157; /* Circumference of circle (2 * π * 25) */
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+.progress-text {
+  fill: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Stats container */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.stat-card {
+  background: #2a2a2a;
+  padding: 8px;
+  border-radius: 5px;
+  text-align: center;
+  border: 1px solid #333;
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-label {
+  font-size: 0.8em;
+  color: #aaa;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #00cc99;
+}
+
+/* Chart container */
+.chart-container {
+  height: 180px;
+  background: #2a2a2a;
+  border-radius: 5px;
+  overflow-y: auto;
+  padding: 8px;
+  border: 1px solid #333;
+}
+
+.level-history {
+  display: flex;
+  gap: 3px;
+  height: 100%;
+}
+
+.level-bar {
+  flex: 1;
+  background: linear-gradient(90deg, #00cc99, #009966);
+  position: relative;
+  min-width: 18px;
+  border-radius: 3px;
+  transition: height 0.3s;
+}
+
+.level-label {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7em;
+  color: #bbb;
+  white-space: nowrap;
+}
+
+/* Notification box */
+.notification-box {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notification-controls {
+  flex-wrap: wrap;
+}
+
+.notification-controls button {
+  flex: 1;
+  padding: 8px;
+}
+
+/* Output container */
+.output-container {
+  background: #2a2a2a;
+  padding: 8px;
+  border-radius: 5px;
+  min-height: 50px;
+  font-size: 0.9em;
+  border: 1px solid #333;
+}
+
+p {
+  margin: 5px 0;
+}
+
+.success {
+  color: #00cc99;
+}
+
+.warning {
+  color: #ffaa00;
+}
+
+.alert {
+  color: #ff4444;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background: rgba(44, 44, 44, 0.95);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  border: 1px solid #555;
+}
+
+.modal-content h2 {
+  color: #00cc99;
+  margin-bottom: 10px;
+  font-size: 1.4em;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content p {
+  margin-bottom: 15px;
+  font-size: 1em;
+  color: #ddd;
+}
+
+.modal-content button {
+  background-color: #ff4444;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1em;
+  transition: transform 0.2s;
+}
+
+.modal-content button:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+
+  .top-controls {
+    flex-direction: column;
+  }
+
+  .button-group,
+  .notification-controls {
+    flex-direction: column;
+  }
+
+  .compact {
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  h3 {
+    font-size: 1.1em;
+  }
+}

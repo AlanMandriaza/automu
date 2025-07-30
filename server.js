@@ -1,6 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import { load } from 'cheerio';
+import { promises as fs } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -10,8 +11,22 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from the 'public' directory with correct MIME types
+app.use(express.static(path.join(__dirname, 'public'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+    if (filePath.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    }
+  }
+}));
 
+// Middleware to parse JSON bodies for POST requests
+app.use(express.json());
+
+// Endpoint to fetch level from mu-party.com
 app.get('/level', async (req, res) => {
   const characterName = req.query.name;
   if (!characterName) {
@@ -52,10 +67,53 @@ app.get('/level', async (req, res) => {
   }
 });
 
+// Endpoint to read history from txt in the 'public' directory
+app.get('/history', async (req, res) => {
+  const name = req.query.name;
+  console.log(`History read request for ${name} at ${new Date().toISOString()}`);
+  try {
+    const filePath = path.join(__dirname, 'public', `history_${name}.txt`);
+    const data = await fs.readFile(filePath, 'utf8').catch(() => '[]');
+    res.json(JSON.parse(data));
+  } catch (err) {
+    console.error(`Error reading history for ${name}:`, err);
+    res.json([]);
+  }
+});
+
+// Endpoint to save history to txt in the 'public' directory
+app.post('/history', async (req, res) => {
+  const { name, history } = req.body;
+  console.log(`History save request for ${name} at ${new Date().toISOString()}`);
+  try {
+    const filePath = path.join(__dirname, 'public', `history_${name}.txt`);
+    await fs.writeFile(filePath, JSON.stringify(history));
+    res.json({ success: true });
+  } catch (err) {
+    console.error(`Error saving history for ${name}:`, err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Endpoint to clear history txt in the 'public' directory
+app.delete('/history', async (req, res) => {
+  const name = req.query.name;
+  console.log(`History clear request for ${name} at ${new Date().toISOString()}`);
+  try {
+    const filePath = path.join(__dirname, 'public', `history_${name}.txt`);
+    await fs.unlink(filePath).catch(() => {});
+    res.json({ success: true });
+  } catch (err) {
+    console.error(`Error clearing history for ${name}:`, err);
+    res.json({ success: true }); // Ignore if file doesn't exist
+  }
+});
+
+// Redirect root to auto.html
 app.get('/', (req, res) => {
   res.redirect('/auto.html');
 });
 
 app.listen(PORT, () => {
-  console.log(`Servidor escuchando en http://localhost:${PORT}`);
+  console.log(`Servidor escuchando en http://localhost:${PORT} at 03:41 PM -04, July 29, 2025`);
 });
