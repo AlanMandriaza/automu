@@ -21,7 +21,7 @@
           <label for="notificationLevel">Nivel Notif.:</label>
           <div class="input-group">
             <input type="number" id="notificationLevel" min="1" max="400" value="400">
-            <button id="confirmLevelBtn">Confirmar</button>
+            <button id="confirmLevelBtn">OK</button>
           </div>
         </div>
         <div class="notification-controls">
@@ -40,15 +40,14 @@
       </div>
       <div class="button-group compact">
         <button id="startButton">Iniciar</button>
-        <button id="clearDataBtn" class="button-danger">Borrar</button>
-        <button id="clearHistoryFileBtn" class="button-danger">Archivo</button>
+        <button id="clearAllBtn" class="button-danger">Borrar</button>
       </div>
     </div>
     <div class="progress-container" id="updateProgress" style="display: none;">
-      <svg class="circular-progress" width="60" height="60">
-        <circle class="progress-background" cx="30" cy="30" r="25"></circle>
-        <circle class="progress-circle" id="updateProgressCircle" cx="30" cy="30" r="25"></circle>
-        <text class="progress-text" id="updateProgressText" x="30" y="35" text-anchor="middle">10s</text>
+      <svg class="circular-progress" width="50" height="50">
+        <circle class="progress-background" cx="25" cy="25" r="20"></circle>
+        <circle class="progress-circle" id="updateProgressCircle" cx="25" cy="25" r="20"></circle>
+        <text class="progress-text" id="updateProgressText" x="25" y="30" text-anchor="middle">10s</text>
       </svg>
     </div>
   </div>
@@ -71,6 +70,16 @@
         <div class="stat-label">Prom. 6 Niv.</div>
         <div class="stat-value" id="avgLast6">00:00:00</div>
       </div>
+      <div class="stat-card">
+        <div class="stat-label">Tiempo en Nivel</div>
+        <div class="progress-container">
+          <svg class="circular-progress" width="50" height="50">
+            <circle class="progress-background" cx="25" cy="25" r="20"></circle>
+            <circle class="progress-circle" id="levelTimeCircle" cx="25" cy="25" r="20"></circle>
+            <text class="progress-text" id="levelTimeText" x="25" y="30" text-anchor="middle">00:00:00</text>
+          </svg>
+        </div>
+      </div>
     </div>
     
     <div class="chart-container">
@@ -78,10 +87,7 @@
     </div>
   </div>
   
-  <div class="panel notification-panel">
-    <h3>🔔 Notificaciones</h3>
-    <div class="output-container" id="output"></div>
-  </div>
+  <div class="toast-container" id="toastContainer"></div>
 
   <div id="goalModal" class="modal">
     <div class="modal-content">

@@ -115,5 +115,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Servidor escuchando en http://localhost:${PORT} at 03:41 PM -04, July 29, 2025`);
+  console.log(`Servidor escuchando en http://localhost:${PORT} at 05:26 AM -04, July 30, 2025`);
 });
