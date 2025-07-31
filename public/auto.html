@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="panel header-panel">
-    <h1>🌟 Monitor de Niveles - MU Party</h1>
+    <h1>🌟 Monitor de Niveles</h1>
     <div class="top-controls">
       <div class="form-group compact">
         <label for="characterName">Nombre:</label>
@@ -67,8 +67,8 @@
         <div class="stat-value" id="lastLevelUpTime">N/A</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Prom. 6 Niv.</div>
-        <div class="stat-value" id="avgLast6">00:00:00</div>
+        <div class="stat-label">Prom. 12 Niv.</div>  <!-- Cambiado de "Prom. 6 Niv." a "Prom. 12 Niv." -->
+        <div class="stat-value" id="avgLast12">00:00</div>  <!-- Cambiado de id="avgLast6" a id="avgLast12" y formato a 00:00 -->
       </div>
       <div class="stat-card">
         <div class="stat-label">Tiempo en Nivel</div>
@@ -76,7 +76,7 @@
           <svg class="circular-progress" width="50" height="50">
             <circle class="progress-background" cx="25" cy="25" r="20"></circle>
             <circle class="progress-circle" id="levelTimeCircle" cx="25" cy="25" r="20"></circle>
-            <text class="progress-text" id="levelTimeText" x="25" y="30" text-anchor="middle">00:00:00</text>
+            <text class="progress-text" id="levelTimeText" x="25" y="30" text-anchor="middle">00:00</text>
           </svg>
         </div>
       </div>
