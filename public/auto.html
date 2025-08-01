@@ -31,7 +31,6 @@
             <label for="notificationVolume">Volumen:</label>
             <input type="range" id="notificationVolume" min="0" max="1" step="0.01" value="0.5">
           </div>
-          <span id="soundStatus">Sonido desactivado</span>
         </div>
       </div>
       <div class="form-group compact">
@@ -60,25 +59,19 @@
       </div>
       <div class="stat-card">
         <div class="stat-label">Estado</div>
-        <div class="stat-value" id="onlineStatus">Desconocido</div>
+        <div class="stat-value" id="onlineStatus">Off</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Tiempo Última Subida</div>
         <div class="stat-value" id="lastLevelUpTime">N/A</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Prom. 12 Niv.</div>  <!-- Cambiado de "Prom. 6 Niv." a "Prom. 12 Niv." -->
-        <div class="stat-value" id="avgLast12">00:00</div>  <!-- Cambiado de id="avgLast6" a id="avgLast12" y formato a 00:00 -->
+        <div class="stat-label">Prom. 12 Niv.</div>
+        <div class="stat-value" id="avgLast12">00:00</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Tiempo en Nivel</div>
-        <div class="progress-container">
-          <svg class="circular-progress" width="50" height="50">
-            <circle class="progress-background" cx="25" cy="25" r="20"></circle>
-            <circle class="progress-circle" id="levelTimeCircle" cx="25" cy="25" r="20"></circle>
-            <text class="progress-text" id="levelTimeText" x="25" y="30" text-anchor="middle">00:00</text>
-          </svg>
-        </div>
+        <div class="stat-value" id="levelTimeText">00:00</div>
       </div>
     </div>
     

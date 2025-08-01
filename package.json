@@ -1,27 +1,35 @@
 {
-  "name": "mu-party-monitor",
-  "version": "1.0.0",
-  "description": "Monitor de niveles para MU Party",
+  "name": "mu-level-monitor",
+  "version": "1.0.2",
+  "description": "Monitor de niveles para MU",
+  "main": "main.js",
   "type": "module",
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "electron .",
+    "dist": "electron-builder"
   },
-  "keywords": [
-    "mu",
-    "party",
-    "monitor",
-    "gaming"
-  ],
-  "author": "Alan",
-  "license": "MIT",
+  "author": "Tu Nombre",
+  "license": "ISC",
   "dependencies": {
-    "axios": "^1.11.0",
-    "cheerio": "^1.1.2",
-    "express": "^4.21.2"
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "express": "^4.19.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "electron": "^31.0.2",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.tu-nombre.mulevelmonitor",
+    "productName": "Monitor de Niveles MU",
+    "files": [
+      "main.js",
+      "server.js",
+      "public/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": "portable"
+    }
   }
 }
